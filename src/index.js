@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
-
+import Pagerouter from './router/index'
 ReactDOM.render(
-    <div>zhye</div>,
+    <Pagerouter/>,
     document.getElementById('root')
 )
