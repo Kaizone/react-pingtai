@@ -1,0 +1,113 @@
+@import '~antd/dist/antd.css';
+* {
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    padding: 0;
+		font-size: 16px;
+		font-weight: normal;
+}
+p{
+	margin: 0;
+	padding: 0;
+}
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+body{
+    background-color: rgb(255, 255, 255);
+    position: relative;
+}
+
+.app_wrap {
+    color: #cccccc;
+    .ant-layout {
+        height: 100vh;
+        .ant-layout-header {
+            background: #0a154c;
+						color: #cccccc;
+            .header_title > a {
+							height: 100%;
+							line-height: 100%;
+							font-size: 30px;
+							color: #cccccc ;
+            }
+            .header_title > a:hover {
+							color: #fff ;
+            }
+						.user_wrap {
+							.avatar {
+								width: 30px;
+								height: 30px;
+								margin-right: 10px;
+							}
+						}
+						.user_wrap span {
+							font-size: 16px;
+						}
+						.anticon-user {
+							margin-right: 10px;
+						}
+            .user_wrap:hover span{
+							
+							color: #fff ;
+							cursor: pointer;
+            }
+            .user_wrap .user_name::after{
+							content: '';
+							display:inline-block;
+							height: 0;
+							margin: 0;
+							border-left: 8px solid transparent;
+							border-top: 8px solid rgb(101, 181, 218);
+							border-right: 8px solid transparent;
+							border-bottom: 8px solid transparent;
+							margin: 0px 0px -8px 8px;
+							
+            }
+        }
+    }
+    .ant-layout-sider-dark {
+        background-color: #001529;
+    }
+		.ant-layout-footer{
+			text-align: center;
+			font-size: 20px;
+			color: #fff;
+			background-color: #001529;
+		}
+		.content_wrap {
+			.main_content {
+				margin: 20px 10px;
+				
+				min-height: 400px;
+				// &代表这一层的类名
+				&:hover {
+					color: #fff;
+				}
+				.font_wrap {
+					background-color: rgb(185, 50, 50);
+				}
+				.ant-table-cell {
+					.article {
+						font-size: 14px;
+					}
+					button {
+						float: right;
+						&:first-child{
+							margin-left: 15px;
+						}
+					}
+				}
+			}
+			.breadcrumb {
+				margin: 10px 0 10px 0;
+				padding: 0 0 0 10px;
+			}
+		}
+}
