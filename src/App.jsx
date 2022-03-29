@@ -61,7 +61,6 @@ export default function App () {
 
   // 跳转到修改个人资料
   const handlcick = (e) => {
-    console.log(e);
     navigate(`/${e.key}`);
     setDefaultKey(e.key);
     setBreadState(e.key)

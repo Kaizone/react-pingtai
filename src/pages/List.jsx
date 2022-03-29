@@ -35,7 +35,7 @@ export default function List() {
     },
   ];
   const [articleLists, updateAricleLists] = useState();
-  const [pagination, setPagination] = useState({current:1, pageSize: 10, total: 1});
+  const [pagination, setPagination] = useState({current:1, pageSize: 8, total: 1});
   const changeGetListData = (arr) => {
     if (arr.length === 0) {
       return;
