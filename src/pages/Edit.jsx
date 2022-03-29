@@ -31,7 +31,8 @@ export default function Edit() {
         console.log(res, id, subTitle, title, updateContent);
         // 初始化文章更新数据, 编辑器添加内容
         setContent(updateContent);
-        editor.txt.append(updateContent);
+        // editor.txt.append(updateContent);
+        editor.txt.html(updateContent);
         setInitArticle({initTitle: title, initSubTitle: subTitle, id});
       })
     }
@@ -49,7 +50,6 @@ export default function Edit() {
       .then((values) => {
         const{title, subtitle: subTitle} = values;
         const content = editor.txt.text();
-        console.log();
         if (params.id) {
           updateArticle({
             content: content,
@@ -57,22 +57,13 @@ export default function Edit() {
             subTitle: subTitle,
             title: title,
           });
-
           return;
         }
-        AddArticle({
+        
+        addArticle({
           title,
           subTitle,
           content
-        }).then((res) => {
-          if (res.errCode === 1 ) {
-            message.error(res.message);
-          }
-          if (res.errCode === 0 ) {
-            message.success(`${res.message},返回列表页`, 1, () => {
-              navigate('/list')
-            });
-          }
         })
       })
       .catch((error) => {
@@ -90,6 +81,20 @@ export default function Edit() {
     setModalVisible(true);
   }
 
+  // 添加文章
+  const addArticle = (args) => {
+    AddArticle(args).then((res) => {
+      if (res.errCode === 1 ) {
+        message.error(res.message);
+      }
+      if (res.errCode === 0 ) {
+        message.success(`${res.message},返回列表页`, 1, () => {
+          navigate('/list')
+        });
+      }
+    })
+  }
+  // 更新文章
   const updateArticle = (args) => {
     console.log(args);
     UpdateArticle(args)
@@ -113,7 +118,7 @@ export default function Edit() {
     <div className='main_content'>
       <PageHeader
             ghost={false}
-            onBack={isShowBack ? () => {console.log('返回');} : false}
+            onBack={isShowBack ? false : () => {navigate('/list')} }
             title="文章编辑"
             subTitle={`当前日期${moment(new Date()).format('YYYY-MM-DD')}`}
             extra={<Button onClick={showSubmitModal} key="1" type="primary">

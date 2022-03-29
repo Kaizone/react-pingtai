@@ -1,7 +1,7 @@
 import React , {useEffect, useState}from 'react';
 import { Table, Button, message } from 'antd';
 import {Link, useNavigate} from  'react-router-dom'
-import { ArticleListApi, deleteArticle} from '../request/api';
+import { ArticleListApi, DeleteArticle} from '../request/api';
 import moment from 'moment'
 export default function List() {
   
@@ -28,7 +28,7 @@ export default function List() {
       render: (item, record) => {
         return (
           <>
-          <Button type="primary"  danger onClick={()=>{handDelArticle(record.key)}}>删除</Button>
+          <Button type="primary"  danger onClick={()=>{delArticle(record.key)}}>删除</Button>
           <Button type="primary" onClick={() => {goEditArticle(record.key)}}>编辑</Button>
           </>
         )
@@ -78,13 +78,19 @@ export default function List() {
   }
 
   //删除文章
-  const handDelArticle = (id) => {
-    console.log(id);
-    deleteArticle(id).then(res => {
-      console.log(res);
+  const delArticle = (id) => {
+    DeleteArticle({id}).then(res => {
+     if (res.errCode === 0) {
+      message.success(res.message);
+      // 删除成功后，请求数据刷新
+      getArticleLists(pagination.current, pagination.pageSize);
+     }
+     if (res.errCode === 1) {
+      message.error(res.message)
+     }
     })
   }
-  // 编辑文章
+  // 跳转编辑文章页
   const goEditArticle = (id) => {
     navigate(`/edit/${id}`)
   }
