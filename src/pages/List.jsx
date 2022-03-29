@@ -1,10 +1,11 @@
 import React , {useEffect, useState}from 'react';
 import { Table, Button, message } from 'antd';
-import {Link} from  'react-router-dom'
+import {Link, useNavigate} from  'react-router-dom'
 import { ArticleListApi, deleteArticle} from '../request/api';
 import moment from 'moment'
 export default function List() {
   
+  const navigate = useNavigate();
   const columns = [
     {
       dataIndex: 'name',
@@ -28,7 +29,7 @@ export default function List() {
         return (
           <>
           <Button type="primary"  danger onClick={()=>{handDelArticle(record.key)}}>删除</Button>
-          <Button type="primary">编辑</Button>
+          <Button type="primary" onClick={() => {goEditArticle(record.key)}}>编辑</Button>
           </>
         )
       }
@@ -78,9 +79,14 @@ export default function List() {
 
   //删除文章
   const handDelArticle = (id) => {
+    console.log(id);
     deleteArticle(id).then(res => {
       console.log(res);
     })
+  }
+  // 编辑文章
+  const goEditArticle = (id) => {
+    navigate(`/edit/${id}`)
   }
   return (
     <div className='main_content'>

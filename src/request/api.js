@@ -12,3 +12,7 @@ export const deleteArticle = (params) => request.post('/article/remove');
 
 // 添加文章
 export const AddArticle = (params) => request.post('/article/add', params);
+// 查看文章
+export const DisplayArticle = (params) => request.get(`/article/${params}`);
+// update 文章
+export const UpdateArticle = (params) => request.put('/article/update', params);

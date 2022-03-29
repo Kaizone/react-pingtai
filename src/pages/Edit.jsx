@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {PageHeader, Modal, Button, Form, Input, message} from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams} from 'react-router-dom'
 import moment from 'moment'
 import E from 'wangeditor'
-import {AddArticle} from '../request/api';
+import {AddArticle, DisplayArticle, UpdateArticle} from '../request/api';
 
 let editor = null;
 export default function Edit() {
   const [content, setContent] = useState('');
   const [isShowModal, setModalVisible] = useState(false);
+  const [isShowBack, setIsShowBack] = useState(true);
+  const [initArticle, setInitArticle] = useState({initTitle: '', initSubTitle: '', id: ''});
   const [form] = Form.useForm();;
   const navigate = useNavigate();
+  const params = useParams();
   useEffect(() => {
     // 创建编辑器
     editor = new E('#editor_container');
@@ -19,7 +22,19 @@ export default function Edit() {
     }
 
     editor.create()
-
+    //  根据是否有Id,显示某文章数据
+    if (params.id) {
+      setIsShowBack(false);
+      DisplayArticle(params.id)
+      .then((res) => {
+        const {errCode, data:{id, subTitle, title, content: updateContent}} = res;
+        console.log(res, id, subTitle, title, updateContent);
+        // 初始化文章更新数据, 编辑器添加内容
+        setContent(updateContent);
+        editor.txt.append(updateContent);
+        setInitArticle({initTitle: title, initSubTitle: subTitle, id});
+      })
+    }
     // 组件卸载时，销毁editor;
     return () => {
       editor.destroy();
@@ -34,6 +49,17 @@ export default function Edit() {
       .then((values) => {
         const{title, subtitle: subTitle} = values;
         const content = editor.txt.text();
+        console.log();
+        if (params.id) {
+          updateArticle({
+            content: content,
+            id: params.id,
+            subTitle: subTitle,
+            title: title,
+          });
+
+          return;
+        }
         AddArticle({
           title,
           subTitle,
@@ -63,6 +89,20 @@ export default function Edit() {
     }
     setModalVisible(true);
   }
+
+  const updateArticle = (args) => {
+    console.log(args);
+    UpdateArticle(args)
+    .then((res) => {
+      if (res.errCode === 0) {
+        message.success(res.message)
+      }
+      if (res.errCode === 1) {
+        message.error(res.message)
+      }
+    })
+  }
+
   function onFinish (values){
     console.log(values);
   } 
@@ -73,7 +113,7 @@ export default function Edit() {
     <div className='main_content'>
       <PageHeader
             ghost={false}
-            onBack={() => window.history.back()}
+            onBack={isShowBack ? () => {console.log('返回');} : false}
             title="文章编辑"
             subTitle={`当前日期${moment(new Date()).format('YYYY-MM-DD')}`}
             extra={<Button onClick={showSubmitModal} key="1" type="primary">
@@ -92,7 +132,7 @@ export default function Edit() {
           name="basic"
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 18 }}
-          initialValues={{ remember: true, title: '', subtitle: '' }}
+          initialValues={{ remember: true, title: initArticle.initTitle, subtitle: initArticle.initSubTitle }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           form={form}
