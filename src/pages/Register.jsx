@@ -15,7 +15,6 @@ export default  function Register  () {
       url: '/api/register',
       data: {username,password}
     }).then((res) => {
-      console.log(res);
       if(res.data && res.data.errCode === 0){
         message.success('注册成功，将返回登录页',1,()=>{
           // 注册成功跳入登录页
@@ -31,7 +30,6 @@ export default  function Register  () {
   // 提交且输入完成时，请求数据
   function onFinish (values)   {
     const {password, username} = values;
-    console.log(12212);
     RegisterApi({
       username, password
     }).then((data)=>{
@@ -49,7 +47,6 @@ export default  function Register  () {
 
   // 输入数据不完整
   function onFinishFailed (errorInfo)  {
-    console.log('Failed:', errorInfo);
   }
     return (
       <div className='register'>

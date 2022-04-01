@@ -16,3 +16,7 @@ export const AddArticle = (params) => request.post('/article/add', params);
 export const DisplayArticle = (params) => request.get(`/article/${params}`);
 // update 文章
 export const UpdateArticle = (params) => request.put('/article/update', params);
+// 获取用户资料
+export const GetUserInfo = (params) => request.get('/info');
+// 修改用户资料
+export const ChangeUserInfo = (params) => request.put('/info', params);

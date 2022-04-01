@@ -45,7 +45,6 @@ export default class Login extends Component {
 			}).then((res) => {
 				if (res.data.errCode === 0) {
 					message.success(`${res.data.message}即将跳转主页`, 1, () => {
-					console.log(res);
 					const {data} = res.data;
 					window.localStorage.setItem('avatar',data.avatar)
 					localStorage.setItem('cms-token', data['cms-token'])

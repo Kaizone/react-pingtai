@@ -4,12 +4,12 @@ import {Link, Outlet,useNavigate, useLocation} from 'react-router-dom';
 import {UserOutlined, SettingOutlined, MailOutlined,AppstoreOutlined, HomeOutlined} from '@ant-design/icons';
 import './static/App.less'
 import defaultAvatar from '../src/static/defaultAvatar.webp';
+import {connect} from 'react-redux';
 
 const { Header, Footer, Sider, Content } = Layout;
-const { SubMenu } = Menu;
 
 // const 
-export default function App () {
+function App (props) {
   const navigate = useNavigate();
   const location = useLocation();
   const [avatar, setAvatar] = useState(defaultAvatar);
@@ -36,7 +36,7 @@ export default function App () {
     }
     
     
-  }, [])
+  }, [localStorage.getItem('avatar')])
 
   const menu = ()=>{
     return(
@@ -74,7 +74,7 @@ export default function App () {
     return (
       <div className='app_wrap'>
           <Layout>
-            <Header>
+            <Header key={props.avatarReload}>
               <h1 className='header_title fl'> <Link to="/">管理平台应用</Link> </h1>
               <Dropdown overlay={menu} placement="bottom">
                 <div className='user_wrap fr'>
@@ -123,3 +123,10 @@ export default function App () {
     )
   
 }
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  }
+}
+export default  connect(mapStateToProps, null)(App);
+// export default  App;

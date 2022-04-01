@@ -28,7 +28,6 @@ export default function Edit() {
       DisplayArticle(params.id)
       .then((res) => {
         const {errCode, data:{id, subTitle, title, content: updateContent}} = res;
-        console.log(res, id, subTitle, title, updateContent);
         // 初始化文章更新数据, 编辑器添加内容
         setContent(updateContent);
         // editor.txt.append(updateContent);
@@ -96,7 +95,6 @@ export default function Edit() {
   }
   // 更新文章
   const updateArticle = (args) => {
-    console.log(args);
     UpdateArticle(args)
     .then((res) => {
       if (res.errCode === 0) {
@@ -109,10 +107,8 @@ export default function Edit() {
   }
 
   function onFinish (values){
-    console.log(values);
   } 
   function onFinishFailed (values){
-    console.log(values);
   } 
   return (
     <div className='main_content'>

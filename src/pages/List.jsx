@@ -56,13 +56,11 @@ export default function List() {
   }, [])
 
   // 请求文章列表数据
-  const getArticleLists = (current, pagesize) => {
-    console.log(current, pagesize);
+  const getArticleLists = (current, pagesize) => { 
     ArticleListApi({num: current, count: pagesize}).then((res)=>{
       const {data:{arr, total, num, count} ,errCode, message: tips} = res;
       if (errCode === 0) {
         const articleLists = changeGetListData(arr);
-        console.log(articleLists);
         updateAricleLists(articleLists);
         setPagination({current: num, pageSize: count, total});
       }
