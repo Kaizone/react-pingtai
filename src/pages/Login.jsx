@@ -55,7 +55,7 @@ export default class Login extends Component {
 					localStorage.setItem('localdata', JSON.stringify(data))
 					sessionStorage.setItem('sessionName', data.username)
 					sessionStorage.setItem('sessiedit', data.editable)
-					window.location.pathname = '/'
+					window.location.pathname = '/list'
 					})
 				} else {
 					message.error(`登陆失败${res.data.message}`);

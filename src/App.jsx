@@ -1,7 +1,7 @@
-import React, { Component, useEffect,useState } from 'react'
-import {Breadcrumb, Layout,Menu,Dropdown,List, message} from 'antd'
+import React, { useEffect,useState } from 'react'
+import {Breadcrumb, Layout,Menu,Dropdown,message} from 'antd'
 import {Link, Outlet,useNavigate, useLocation} from 'react-router-dom';
-import {UserOutlined, SettingOutlined, MailOutlined,AppstoreOutlined, HomeOutlined} from '@ant-design/icons';
+import { SettingOutlined, MailOutlined,AppstoreOutlined, HomeOutlined} from '@ant-design/icons';
 import './static/App.less'
 import defaultAvatar from '../src/static/defaultAvatar.webp';
 import {connect} from 'react-redux';
