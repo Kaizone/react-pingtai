@@ -98,7 +98,9 @@ export default function Edit() {
     UpdateArticle(args)
     .then((res) => {
       if (res.errCode === 0) {
-        message.success(res.message)
+        message.success(`${res.message}返回列表页`, 1, () => {
+          navigate('/list')
+        })
       }
       if (res.errCode === 1) {
         message.error(res.message)
